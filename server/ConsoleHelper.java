@@ -15,7 +15,7 @@ public class ConsoleHelper {
         try {
             return reader.readLine();
         } catch (IOException e) {
-            System.out.println("Произошла ошибка при попытке ввода текста. Попробуйте еще раз.");
+            System.out.println("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё РїРѕРїС‹С‚РєРµ РІРІРѕРґР° С‚РµРєСЃС‚Р°. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·.");
             return readString();
         }
     }
@@ -24,7 +24,7 @@ public class ConsoleHelper {
         try {
             return Integer.parseInt(readString());
         }catch (NumberFormatException e){
-            System.out.println("Произошла ошибка при попытке ввода числа. Попробуйте еще раз.");
+            System.out.println("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё РїРѕРїС‹С‚РєРµ РІРІРѕРґР° С‡РёСЃР»Р°. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·.");
             return readInt();
         }
     }

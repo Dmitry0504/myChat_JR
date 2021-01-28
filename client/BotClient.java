@@ -34,34 +34,34 @@ public class BotClient extends Client {
         @Override
         protected void clientMainLoop() throws IOException, ClassNotFoundException {
             BotClient.this.sendTextMessage(
-                    "Привет чатику. Я бот. Понимаю команды: дата, день, месяц, год, время, час, минуты, секунды."
+                    "РџСЂРёРІРµС‚ С‡Р°С‚РёРєСѓ. РЇ Р±РѕС‚. РџРѕРЅРёРјР°СЋ РєРѕРјР°РЅРґС‹: РґР°С‚Р°, РґРµРЅСЊ, РјРµСЃСЏС†, РіРѕРґ, РІСЂРµРјСЏ, С‡Р°СЃ, РјРёРЅСѓС‚С‹, СЃРµРєСѓРЅРґС‹."
             );
             super.clientMainLoop();
         }
 
         @Override
         protected void processIncomingMessage(String message) {
-            //выводим в чат бота сообщение пользователя
+            //РІС‹РІРѕРґРёРј РІ С‡Р°С‚ Р±РѕС‚Р° СЃРѕРѕР±С‰РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
             ConsoleHelper.writeMessage(message);
             if(message == null | !message.contains(": ")) return;
             String[] array = message.split(": ");
-            //создаем карту ключ - слово которое введит пользователь
-            //значение - паттерн для SimpleDateFormat
+            //СЃРѕР·РґР°РµРј РєР°СЂС‚Сѓ РєР»СЋС‡ - СЃР»РѕРІРѕ РєРѕС‚РѕСЂРѕРµ РІРІРµРґРёС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
+            //Р·РЅР°С‡РµРЅРёРµ - РїР°С‚С‚РµСЂРЅ РґР»СЏ SimpleDateFormat
             HashMap<String, String> map = new HashMap<>();
-            map.put("дата", "d.MM.YYYY");
-            map.put("день", "d");
-            map.put("месяц", "MMMM");
-            map.put("год", "YYYY");
-            map.put("время", "H:mm:ss");
-            map.put("час", "H");
-            map.put("минуты", "m");
-            map.put("секунды", "s");
-            //получаем значение из map в соответсвии со словом введенным пользователем
+            map.put("РґР°С‚Р°", "d.MM.YYYY");
+            map.put("РґРµРЅСЊ", "d");
+            map.put("РјРµСЃСЏС†", "MMMM");
+            map.put("РіРѕРґ", "YYYY");
+            map.put("РІСЂРµРјСЏ", "H:mm:ss");
+            map.put("С‡Р°СЃ", "H");
+            map.put("РјРёРЅСѓС‚С‹", "m");
+            map.put("СЃРµРєСѓРЅРґС‹", "s");
+            //РїРѕР»СѓС‡Р°РµРј Р·РЅР°С‡РµРЅРёРµ РёР· map РІ СЃРѕРѕС‚РІРµС‚СЃРІРёРё СЃРѕ СЃР»РѕРІРѕРј РІРІРµРґРµРЅРЅС‹Рј РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
             String pattern = map.get(array[1]);
             if(pattern == null) return;
             String answer = new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime());
-            //отправляем сообщение - ответ
-            sendTextMessage(String.format("Информация для %s: %s", array[0], answer));
+            //РѕС‚РїСЂР°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ - РѕС‚РІРµС‚
+            sendTextMessage(String.format("РРЅС„РѕСЂРјР°С†РёСЏ РґР»СЏ %s: %s", array[0], answer));
         }
     }
 }

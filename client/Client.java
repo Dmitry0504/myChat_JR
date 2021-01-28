@@ -9,25 +9,25 @@ import java.io.IOException;
 import java.net.Socket;
 
 /*
-Клиент, в начале своей работы, должен запросить у пользователя адрес и порт сервера,
-подсоединиться к указанному адресу, получить запрос имени от сервера, спросить имя
-у пользователя, отправить имя пользователя серверу, дождаться принятия имени сервером.
-После этого клиент может обмениваться текстовыми сообщениями с сервером.
-Обмен сообщениями будет происходить в двух параллельно работающих потоках.
-Один будет заниматься чтением из консоли и отправкой прочитанного серверу, а второй
-поток будет получать данные от сервера и выводить их в консоль.
+РљР»РёРµРЅС‚, РІ РЅР°С‡Р°Р»Рµ СЃРІРѕРµР№ СЂР°Р±РѕС‚С‹, РґРѕР»Р¶РµРЅ Р·Р°РїСЂРѕСЃРёС‚СЊ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р°РґСЂРµСЃ Рё РїРѕСЂС‚ СЃРµСЂРІРµСЂР°,
+РїРѕРґСЃРѕРµРґРёРЅРёС‚СЊСЃСЏ Рє СѓРєР°Р·Р°РЅРЅРѕРјСѓ Р°РґСЂРµСЃСѓ, РїРѕР»СѓС‡РёС‚СЊ Р·Р°РїСЂРѕСЃ РёРјРµРЅРё РѕС‚ СЃРµСЂРІРµСЂР°, СЃРїСЂРѕСЃРёС‚СЊ РёРјСЏ
+Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РѕС‚РїСЂР°РІРёС‚СЊ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃРµСЂРІРµСЂСѓ, РґРѕР¶РґР°С‚СЊСЃСЏ РїСЂРёРЅСЏС‚РёСЏ РёРјРµРЅРё СЃРµСЂРІРµСЂРѕРј.
+РџРѕСЃР»Рµ СЌС‚РѕРіРѕ РєР»РёРµРЅС‚ РјРѕР¶РµС‚ РѕР±РјРµРЅРёРІР°С‚СЊСЃСЏ С‚РµРєСЃС‚РѕРІС‹РјРё СЃРѕРѕР±С‰РµРЅРёСЏРјРё СЃ СЃРµСЂРІРµСЂРѕРј.
+РћР±РјРµРЅ СЃРѕРѕР±С‰РµРЅРёСЏРјРё Р±СѓРґРµС‚ РїСЂРѕРёСЃС…РѕРґРёС‚СЊ РІ РґРІСѓС… РїР°СЂР°Р»Р»РµР»СЊРЅРѕ СЂР°Р±РѕС‚Р°СЋС‰РёС… РїРѕС‚РѕРєР°С….
+РћРґРёРЅ Р±СѓРґРµС‚ Р·Р°РЅРёРјР°С‚СЊСЃСЏ С‡С‚РµРЅРёРµРј РёР· РєРѕРЅСЃРѕР»Рё Рё РѕС‚РїСЂР°РІРєРѕР№ РїСЂРѕС‡РёС‚Р°РЅРЅРѕРіРѕ СЃРµСЂРІРµСЂСѓ, Р° РІС‚РѕСЂРѕР№
+РїРѕС‚РѕРє Р±СѓРґРµС‚ РїРѕР»СѓС‡Р°С‚СЊ РґР°РЅРЅС‹Рµ РѕС‚ СЃРµСЂРІРµСЂР° Рё РІС‹РІРѕРґРёС‚СЊ РёС… РІ РєРѕРЅСЃРѕР»СЊ.
  */
 public class Client {
     protected Connection connection;
     private volatile boolean clientConnected = false;
 
     protected String getServerAddress(){
-        ConsoleHelper.writeMessage("Введите адрес сервера(localhost)");
+        ConsoleHelper.writeMessage("Р’РІРµРґРёС‚Рµ Р°РґСЂРµСЃ СЃРµСЂРІРµСЂР°(localhost)");
         return ConsoleHelper.readString();
     }
 
     protected int getServerPort(){
-        ConsoleHelper.writeMessage("Введите номер порта сервера");
+        ConsoleHelper.writeMessage("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РїРѕСЂС‚Р° СЃРµСЂРІРµСЂР°");
         return ConsoleHelper.readInt();
     }
 
@@ -39,19 +39,19 @@ public class Client {
         return new SocketThread();
     }
 
-    //просим ввести имя пользователя
+    //РїСЂРѕСЃРёРј РІРІРµСЃС‚Рё РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
     protected String getUserName(){
-        ConsoleHelper.writeMessage("Введите имя пользователя");
+        ConsoleHelper.writeMessage("Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ");
         return ConsoleHelper.readString();
     }
 
-    //отправляем сообщение
+    //РѕС‚РїСЂР°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ
     protected void sendTextMessage(String text){
         try {
             Message message = new Message(MessageType.TEXT, text);
             connection.send(message);
         } catch (IOException e) {
-            ConsoleHelper.writeMessage("Ошибка при отправке сообщения");
+            ConsoleHelper.writeMessage("РћС€РёР±РєР° РїСЂРё РѕС‚РїСЂР°РІРєРµ СЃРѕРѕР±С‰РµРЅРёСЏ");
             clientConnected = false;
         }
     }
@@ -64,14 +64,14 @@ public class Client {
             try {
                 this.wait();
             } catch (InterruptedException e) {
-                ConsoleHelper.writeMessage("Ошибка при ожидании");
+                ConsoleHelper.writeMessage("РћС€РёР±РєР° РїСЂРё РѕР¶РёРґР°РЅРёРё");
             }
 
         }
         while (clientConnected){
             String message = ConsoleHelper.readString();
             if(message.equals("exit")){
-                ConsoleHelper.writeMessage("Вы покинули чат");
+                ConsoleHelper.writeMessage("Р’С‹ РїРѕРєРёРЅСѓР»Рё С‡Р°С‚");
                 clientConnected = false;
                 break;
             }
@@ -87,7 +87,7 @@ public class Client {
         client.run();
     }
 
-    //отвечает за поток, устанавливающий сокетное соединение и читающий сообщения сервера
+    //РѕС‚РІРµС‡Р°РµС‚ Р·Р° РїРѕС‚РѕРє, СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋС‰РёР№ СЃРѕРєРµС‚РЅРѕРµ СЃРѕРµРґРёРЅРµРЅРёРµ Рё С‡РёС‚Р°СЋС‰РёР№ СЃРѕРѕР±С‰РµРЅРёСЏ СЃРµСЂРІРµСЂР°
     public class SocketThread extends Thread{
 
         protected void processIncomingMessage(String message){
@@ -95,11 +95,11 @@ public class Client {
         }
 
         protected void informAboutAddingNewUser(String userName){
-            ConsoleHelper.writeMessage(userName + " присоединился к чату");
+            ConsoleHelper.writeMessage(userName + " РїСЂРёСЃРѕРµРґРёРЅРёР»СЃСЏ Рє С‡Р°С‚Сѓ");
         }
 
         protected void informAboutDeletingNewUser(String userName){
-            ConsoleHelper.writeMessage(userName + " покинул чат");
+            ConsoleHelper.writeMessage(userName + " РїРѕРєРёРЅСѓР» С‡Р°С‚");
         }
 
         protected void notifyConnectionStatusChanged(boolean clientConnected){
@@ -109,33 +109,33 @@ public class Client {
             }
         }
 
-        //знакомимся с сервером
+        //Р·РЅР°РєРѕРјРёРјСЃСЏ СЃ СЃРµСЂРІРµСЂРѕРј
         protected void clientHandshake() throws IOException, ClassNotFoundException{
             while (true){
-                //получаем сообщение
+                //РїРѕР»СѓС‡Р°РµРј СЃРѕРѕР±С‰РµРЅРёРµ
                 Message message = connection.receive();
-                //если это запрос имени, спрашиваем у пользователя имя и отправляем
+                //РµСЃР»Рё СЌС‚Рѕ Р·Р°РїСЂРѕСЃ РёРјРµРЅРё, СЃРїСЂР°С€РёРІР°РµРј Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёРјСЏ Рё РѕС‚РїСЂР°РІР»СЏРµРј
                 if(message.getType() == MessageType.NAME_REQUEST) {
                     connection.send(new Message(MessageType.USER_NAME, getUserName()));
                     continue;
                 }
-                //если имя подтверждено завершаем метод
+                //РµСЃР»Рё РёРјСЏ РїРѕРґС‚РІРµСЂР¶РґРµРЅРѕ Р·Р°РІРµСЂС€Р°РµРј РјРµС‚РѕРґ
                 if(message.getType() == MessageType.NAME_ACCEPTED) {
                     notifyConnectionStatusChanged(true);
                     return;
                 }
-                //если сервер спрашивает что-то не то кидаем исключение
+                //РµСЃР»Рё СЃРµСЂРІРµСЂ СЃРїСЂР°С€РёРІР°РµС‚ С‡С‚Рѕ-С‚Рѕ РЅРµ С‚Рѕ РєРёРґР°РµРј РёСЃРєР»СЋС‡РµРЅРёРµ
                 if(message.getType() != MessageType.NAME_REQUEST |
                         message.getType() != MessageType.NAME_ACCEPTED)
                     throw new IOException("Unexpected MessageType");
             }
         }
 
-        //основной метод принимающий сообщения от сервера
+        //РѕСЃРЅРѕРІРЅРѕР№ РјРµС‚РѕРґ РїСЂРёРЅРёРјР°СЋС‰РёР№ СЃРѕРѕР±С‰РµРЅРёСЏ РѕС‚ СЃРµСЂРІРµСЂР°
         protected void clientMainLoop() throws IOException, ClassNotFoundException{
             while (true){
                 Message message = connection.receive();
-                //в зависимости от типа сообщения отправляем его в соответсвующий метод
+                //РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РёРїР° СЃРѕРѕР±С‰РµРЅРёСЏ РѕС‚РїСЂР°РІР»СЏРµРј РµРіРѕ РІ СЃРѕРѕС‚РІРµС‚СЃРІСѓСЋС‰РёР№ РјРµС‚РѕРґ
                 if(message.getType() == MessageType.TEXT){
                     processIncomingMessage(message.getData());
                 }
@@ -145,7 +145,7 @@ public class Client {
                 else if(message.getType() == MessageType.USER_REMOVED){
                     informAboutDeletingNewUser(message.getData());
                 }
-                //если что-то не так кидаем исключение
+                //РµСЃР»Рё С‡С‚Рѕ-С‚Рѕ РЅРµ С‚Р°Рє РєРёРґР°РµРј РёСЃРєР»СЋС‡РµРЅРёРµ
                 else if(message.getType() != MessageType.TEXT |
                         message.getType() != MessageType.USER_ADDED |
                         message.getType() != MessageType.USER_REMOVED){
